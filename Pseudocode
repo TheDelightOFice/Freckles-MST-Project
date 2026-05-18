@@ -1,1 +1,45 @@
+FUNCTION find_mst_length(freckles_list):
+    n = length(freckles_list)
+    edges = []
+    
+    // Step 1: Generate all possible edges with Euclidean distances
+    FOR i FROM 0 TO n - 1:
+        FOR j FROM i + 1 TO n - 1:
+            dist = sqrt((freckles_list[i].x - freckles_list[j].x)^2 + 
+                        (freckles_list[i].y - freckles_list[j].y)^2)
+            APPEND edge(u=i, v=j, weight=dist) TO edges
 
+    // Step 2: Sort all edges by distance in ascending order
+    SORT edges BY weight ASCENDING
+
+    // Step 3: Initialize Disjoint Set Union (DSU) / Union-Find
+    parent = ARRAY of size n where parent[i] = i
+    
+    FUNCTION find(i):
+        IF parent[i] == i:
+            RETURN i
+        parent[i] = find(parent[i]) // Path compression shortcut
+        RETURN parent[i]
+
+    FUNCTION union_sets(i, j):
+        root_i = find(i)
+        root_j = find(j)
+        IF root_i != root_j:
+            parent[root_i] = root_j
+            RETURN TRUE
+        RETURN FALSE
+
+    // Step 4: Build the Spanning Tree
+    mst_weight = 0.0
+    edges_connected = 0
+
+    FOR EACH edge IN edges:
+        IF edges_connected == n - 1:
+            BREAK // Tree is complete
+            
+        // If they belong to different components, connect them
+        IF union_sets(edge.u, edge.v) IS TRUE:
+            mst_weight = mst_weight + edge.weight
+            edges_connected = edges_connected + 1
+
+    RETURN round_to_2_decimal_places(mst_weight)
