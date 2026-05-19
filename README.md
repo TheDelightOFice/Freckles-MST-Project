@@ -65,7 +65,7 @@ We use DSU to detect cycles efficiently
 
 ## IMPORTANT NOTES
 
-##Find Function
+###Find Function
 
 ![image alt](https://github.com/TheDelightOFice/Freckles-MST-Project/blob/e9ab6dcdd5bd312ed3312eb4bc73eb112d451d4f/Screenshot%202026-05-19%20232245.png)
 
