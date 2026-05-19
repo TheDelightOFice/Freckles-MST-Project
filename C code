@@ -43,7 +43,7 @@ int find(int x) {
 // ------
 // Merges two sets together
 void unionSet(int a, int b) {
-    parent[find(a)] = find(b);
+    parent[find(b)] = find(a);
 }
 
 
